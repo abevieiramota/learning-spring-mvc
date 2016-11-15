@@ -4,14 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.postgresql.core.ConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-public class JPAConfiguration {
+@EnableTransactionManagement
+public class JpaConfiguration {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -23,10 +28,8 @@ public class JPAConfiguration {
 		// necessário jdbc.properties em resources
 		Properties jdbcProperties = new Properties();
 		try (InputStream is = ConnectionFactory.class.getClassLoader().getResourceAsStream("jdbc.properties")) {
-
 			jdbcProperties.load(is);
 		} catch (IOException e) {
-
 			throw new IllegalStateException("Macho, joga esse jdbc.properties no build path porra!");
 		}
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -45,5 +48,10 @@ public class JPAConfiguration {
 		factoryBean.setPackagesToScan("br.com.abevieiramota.casadocodigo.loja.models");
 
 		return factoryBean;
+	}
+
+	@Bean
+	public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+		return new JpaTransactionManager(emf);
 	}
 }

@@ -11,6 +11,7 @@ import br.com.abevieiramota.casadocodigo.loja.models.Produto;
 public class ProdutosController {
 	
 	@Autowired
+	// gerenciado pelo spring
 	private ProdutoDAO produtoDao;
 
 	@RequestMapping("/produtos/form")
@@ -20,8 +21,8 @@ public class ProdutosController {
 	
 	@RequestMapping("/produtos")
 	public String gravar(Produto produto) {
-		System.out.println(produto);
 		produtoDao.gravar(produto);
+		
 		return "produtos/ok";
 	}
 }

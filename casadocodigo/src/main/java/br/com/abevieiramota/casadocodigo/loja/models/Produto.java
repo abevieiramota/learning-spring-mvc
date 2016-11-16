@@ -1,5 +1,8 @@
 package br.com.abevieiramota.casadocodigo.loja.models;
 
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,11 +13,12 @@ public class Produto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
-
+	private int id;
 	private String titulo;
 	private String descricao;
 	private int paginas;
+	@ElementCollection // não entity! value object
+	private List<Preco> precos;
 
 	public String getTitulo() {
 		return this.titulo;
@@ -38,6 +42,18 @@ public class Produto {
 
 	public void setPaginas(int paginas) {
 		this.paginas = paginas;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public List<Preco> getPrecos() {
+		return this.precos;
+	}
+
+	public void setPrecos(List<Preco> precos) {
+		this.precos = precos;
 	}
 
 	@Override

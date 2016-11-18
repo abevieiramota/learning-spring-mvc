@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.abevieiramota.casadocodigo.loja.daos.ProdutoDAO;
 import br.com.abevieiramota.casadocodigo.loja.models.Produto;
@@ -29,11 +30,15 @@ public class ProdutosController {
 		return modelAndView;
 	}
 
+	// flash attributos > vida entre um atributo e outro
 	@RequestMapping(method = RequestMethod.POST)
-	public String gravar(Produto produto) {
+	public String gravar(Produto produto, RedirectAttributes redirectAttributes) {
 		this.produtoDao.gravar(produto);
 
-		return "produtos/ok";
+		redirectAttributes.addFlashAttribute("sucesso", "Produto cadastrado com sucesso!");
+
+		// 'bug' do F5 -> após post, mandar redirect!
+		return "redirect:produtos";
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

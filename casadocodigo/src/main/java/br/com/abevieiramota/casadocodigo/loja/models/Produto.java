@@ -1,5 +1,6 @@
 package br.com.abevieiramota.casadocodigo.loja.models;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 public class Produto {
 
@@ -17,10 +20,12 @@ public class Produto {
 	private int id;
 	private String titulo;
 	@Lob
+	@Type(type = "org.hibernate.type.TextType")
 	private String descricao;
 	private int paginas;
 	@ElementCollection // não entity! value object
 	private List<Preco> precos;
+	private Calendar dataLancamento;
 
 	public String getTitulo() {
 		return this.titulo;
@@ -56,6 +61,14 @@ public class Produto {
 
 	public void setPrecos(List<Preco> precos) {
 		this.precos = precos;
+	}
+
+	public Calendar getDataLancamento() {
+		return dataLancamento;
+	}
+
+	public void setDataLancamento(Calendar dataLancamento) {
+		this.dataLancamento = dataLancamento;
 	}
 
 	@Override

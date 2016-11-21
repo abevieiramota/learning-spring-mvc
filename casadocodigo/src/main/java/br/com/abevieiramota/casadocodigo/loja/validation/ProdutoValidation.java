@@ -8,10 +8,6 @@ import br.com.abevieiramota.casadocodigo.loja.models.Produto;
 
 public class ProdutoValidation implements Validator {
 
-	public void validate(Produto produto, Errors errors) {
-
-	}
-
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Produto.class.isAssignableFrom(clazz);

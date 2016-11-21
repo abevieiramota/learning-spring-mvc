@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 
-import org.postgresql.core.ConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,7 +26,7 @@ public class JpaConfiguration {
 
 		// necessário jdbc.properties em resources
 		Properties jdbcProperties = new Properties();
-		try (InputStream is = ConnectionFactory.class.getClassLoader().getResourceAsStream("jdbc.properties")) {
+		try (InputStream is = JpaConfiguration.class.getClassLoader().getResourceAsStream("jdbc.properties")) {
 			jdbcProperties.load(is);
 		} catch (IOException e) {
 			throw new IllegalStateException("Macho, joga esse jdbc.properties no build path porra!");

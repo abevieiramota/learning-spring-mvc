@@ -17,7 +17,7 @@ public class FileSaver {
 
 	public String write(String baseFolder, MultipartFile file) {
 		try {
-			String realPath = request.getServletContext().getRealPath("/" + baseFolder);
+			String realPath = this.request.getServletContext().getRealPath("/" + baseFolder);
 			String path = realPath + "/" + file.getOriginalFilename();
 			
 			file.transferTo(new File(path));

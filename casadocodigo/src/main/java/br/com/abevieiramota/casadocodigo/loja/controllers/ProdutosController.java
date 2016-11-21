@@ -48,15 +48,15 @@ public class ProdutosController {
 	}
 
 	// flash attributos > vida entre um atributo e outro
+	// Produto > BindingResult < ordem relevante
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView gravar(MultipartFile sumario, @Valid Produto produto, BindingResult result,
 			RedirectAttributes redirectAttributes) {
-
 		if (result.hasErrors()) {
 			return form(produto);
 		}
 
-		String sumarioPath = fileSaver.write("arquivos-sumario", sumario);
+		String sumarioPath = this.fileSaver.write("arquivos-sumario", sumario);
 		produto.setSumarioPath(sumarioPath);
 
 		this.produtoDao.gravar(produto);
@@ -79,7 +79,7 @@ public class ProdutosController {
 
 	@RequestMapping("/detalhe/{id}")
 	public ModelAndView detalhe(@PathVariable("id") Integer id) {
-		Produto produto = produtoDao.find(id);
+		Produto produto = this.produtoDao.find(id);
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("produtos/detalhe");

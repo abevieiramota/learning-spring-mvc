@@ -60,6 +60,10 @@ public class Produto {
 	public int getId() {
 		return this.id;
 	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public List<Preco> getPrecos() {
 		return this.precos;

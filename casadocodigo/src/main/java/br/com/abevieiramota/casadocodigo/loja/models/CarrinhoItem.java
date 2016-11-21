@@ -1,12 +1,14 @@
 package br.com.abevieiramota.casadocodigo.loja.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class CarrinhoItem {
+public class CarrinhoItem implements Serializable {
+	private static final long serialVersionUID = 1004392473647365878L;
 
 	private Produto produto;
 	private TipoPreco tipoPreco;
-	
+
 	public BigDecimal getPreco() {
 		return this.produto.precoPara(this.tipoPreco);
 	}
@@ -32,7 +34,7 @@ public class CarrinhoItem {
 		// TODO Auto-generated constructor stub
 		this.tipoPreco = tipoPreco;
 	}
-	
+
 	public BigDecimal getTotal(int quantidade) {
 		return this.getPreco().multiply(new BigDecimal(quantidade));
 	}
@@ -65,5 +67,4 @@ public class CarrinhoItem {
 		return true;
 	}
 
-	
 }
